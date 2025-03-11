@@ -1,11 +1,16 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/data";
+const baseUrl = "/api/weights";
+
+interface Weight {
+  weight: number;
+  id: number;
+}
 
 const getAll = () => {
   return axios.get(baseUrl);
 };
 
-const create = (newObject) => {
+const create = (newObject: Omit<Weight, "id">) => {
   return axios.post(baseUrl, newObject);
 };
 

@@ -1,25 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import formatWeight from "./utils/formatWeight";
 import styles from "./App.module.css";
 
+interface Weight {
+  weight: number;
+  id: number;
+}
+
 function App() {
-  const [data, setData] = useState([]);
+  const [weights, setWeights] = useState<Weight[]>([]);
   const [newWeight, setNewWeight] = useState("");
 
   useEffect(() => {
     weightService.getAll().then((res) => {
-      setData(res.data);
+      console.log(res.data);
+      setWeights(res.data);
     });
   }, []);
 
-  function addWeight(e) {
+  function addWeight(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newWeightObject = {
-      weight: newWeight,
+      weight: Number(newWeight),
     };
     weightService.create(newWeightObject).then((res) => {
-      setData(data.concat(res.data));
+      setWeights(weights.concat(res.data));
       setNewWeight("");
     });
   }
@@ -29,8 +35,8 @@ function App() {
       <main className={styles.main}>
         <h1>Weight tracker</h1>
         <div>
-          {data.map((dataPoint) => (
-            <p>{formatWeight(dataPoint.weight)} kg</p>
+          {weights.map((dataPoint) => (
+            <p key={dataPoint.id}>{formatWeight(dataPoint.weight)} kg</p>
           ))}
         </div>
         <form action="" onSubmit={addWeight} className={styles.form}>
