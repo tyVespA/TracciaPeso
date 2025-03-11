@@ -1,0 +1,19 @@
+.page {
+  width: 100vw;
+}
+
+.main {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.form input {
+  height: 36px;
+}

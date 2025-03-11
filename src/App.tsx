@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import weightService from "./services/weights";
 import formatWeight from "./utils/formatWeight";
-import "./App.css";
+import styles from "./App.module.css";
 
 function App() {
   const [data, setData] = useState([]);
@@ -26,22 +25,24 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Weight tracker</h1>
-      <div>
-        {data.map((dataPoint) => (
-          <p>{formatWeight(dataPoint.weight)} kg</p>
-        ))}
-      </div>
-      <form action="" onSubmit={addWeight}>
-        <input
-          type="text"
-          value={newWeight}
-          onChange={(e) => setNewWeight(e.target.value)}
-        />
-        <button>add today's weight</button>
-      </form>
-    </>
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <h1>Weight tracker</h1>
+        <div>
+          {data.map((dataPoint) => (
+            <p>{formatWeight(dataPoint.weight)} kg</p>
+          ))}
+        </div>
+        <form action="" onSubmit={addWeight} className={styles.form}>
+          <input
+            type="text"
+            value={newWeight}
+            onChange={(e) => setNewWeight(e.target.value)}
+          />
+          <button>add today's weight</button>
+        </form>
+      </main>
+    </div>
   );
 }
 
