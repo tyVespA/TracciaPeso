@@ -1,30 +1,46 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
+import weightService from "./services/weights";
+import formatWeight from "./utils/formatWeight";
 import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
+  const [newWeight, setNewWeight] = useState("");
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/data").then((res) => {
-      console.log("promise fullfilled");
+    weightService.getAll().then((res) => {
       setData(res.data);
     });
   }, []);
-  console.log("render", data.length, "data points");
 
-  function formatWeight(weight: number) {
-    return weight % 1 === 0 ? `${weight}.0` : `${weight}`;
+  function addWeight(e) {
+    e.preventDefault();
+    const newWeightObject = {
+      weight: newWeight,
+    };
+    weightService.create(newWeightObject).then((res) => {
+      setData(data.concat(res.data));
+      setNewWeight("");
+    });
   }
 
   return (
     <>
       <h1>Weight tracker</h1>
-      {data.map((dataPoint) => (
-        <p>{formatWeight(dataPoint.weight)} kg</p>
-      ))}
+      <div>
+        {data.map((dataPoint) => (
+          <p>{formatWeight(dataPoint.weight)} kg</p>
+        ))}
+      </div>
+      <form action="" onSubmit={addWeight}>
+        <input
+          type="text"
+          value={newWeight}
+          onChange={(e) => setNewWeight(e.target.value)}
+        />
+        <button>add today's weight</button>
+      </form>
     </>
   );
 }
