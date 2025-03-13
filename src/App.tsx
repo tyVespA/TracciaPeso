@@ -2,6 +2,7 @@ import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import formatWeight from "./utils/formatWeight";
 import styles from "./App.module.css";
+import TestChart from "./components/TestChart";
 
 interface Weight {
   weight: number;
@@ -11,6 +12,7 @@ interface Weight {
 function App() {
   const [weights, setWeights] = useState<Weight[]>([]);
   const [newWeight, setNewWeight] = useState("");
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     weightService.getAll().then((res) => {
@@ -27,6 +29,7 @@ function App() {
     weightService.create(newWeightObject).then((res) => {
       setWeights(weights.concat(res.data));
       setNewWeight("");
+      setReload((prev) => !prev);
     });
   }
 
@@ -48,6 +51,10 @@ function App() {
           <button>add today's weight</button>
         </form>
       </main>
+      <div className={styles.chartsContainer}>
+        <TestChart reload={reload} />
+        <TestChart reload={reload} />
+      </div>
     </div>
   );
 }
