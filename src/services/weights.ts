@@ -14,7 +14,14 @@ const create = (newObject: Omit<Weight, "id">) => {
   return axios.post(baseUrl, newObject);
 };
 
+const deleteWeight = (id: string) => {
+  return axios.delete(`${baseUrl}/${id}`);
+};
+
+// const update
+
 export default {
   getAll,
   create,
+  deleteWeight,
 };
