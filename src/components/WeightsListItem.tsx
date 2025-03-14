@@ -27,7 +27,6 @@ export default function WeightsListItem({
         className={styles.button}
         onClick={() => {
           setOpenModal(!openModal);
-          console.log(openModal);
           console.log(id);
         }}
       >

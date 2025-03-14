@@ -17,6 +17,7 @@
 
 .form input {
   height: 36px;
+  text-align: center;
 }
 
 .chartsContainer {
