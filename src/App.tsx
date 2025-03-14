@@ -1,6 +1,5 @@
 import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
-import formatWeight from "./utils/formatWeight";
 import styles from "./App.module.css";
 import WeightsList from "./components/WeightsList";
 import DailyChart from "./components/DailyChart";
@@ -8,7 +7,7 @@ import WeeklyChart from "./components/WeeklyChart";
 
 interface Weight {
   weight: number;
-  id: number;
+  id: string;
 }
 
 function App() {
@@ -39,12 +38,11 @@ function App() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Weight tracker</h1>
-        <WeightsList weights={weights} />
-        <div>
-          {/* {weights.map((dataPoint) => (
-            <p key={dataPoint.id}>{formatWeight(dataPoint.weight)} kg</p>
-          ))} */}
-        </div>
+        <WeightsList
+          weights={weights}
+          setWeights={setWeights}
+          setReload={setReload}
+        />
         <form action="" onSubmit={addWeight} className={styles.form}>
           <input
             type="text"
