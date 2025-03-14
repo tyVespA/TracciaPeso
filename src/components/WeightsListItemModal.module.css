@@ -1,11 +1,50 @@
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
 .modalContainer {
-  position: absolute;
+  background-color: black;
+  font-weight: bold;
+  padding: 20px 40px 30px 40px;
+  z-index: 1000;
+  position: relative;
   top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: black;
-  font-weight: bold;
-  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  border-radius: 20px;
+}
+
+.weightInput {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 16px;
+  width: 170px;
+  height: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.weightInput::placeholder {
+  color: rgba(255, 255, 255, 0.644);
 }
 
 .buttonsContainer {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./WeightsListItemModal.module.css";
 import weightService from "../services/weights";
 
@@ -20,6 +21,8 @@ export default function WeightsListItemModal({
   setOpenModal,
   setReload,
 }: WeightsListItemModalProps) {
+  const [newWeight, setNewWeight] = useState(weight);
+
   function handleDelete() {
     console.log(id);
 
@@ -30,11 +33,31 @@ export default function WeightsListItemModal({
     setReload((prev) => !prev);
   }
 
+  function handleUpdate() {
+    setOpenModal(false);
+  }
+
   return (
-    <div className={styles.modalContainer}>
-      <p>{weight} kg</p>
-      <div className={styles.buttonsContainer}>
-        <button onClick={handleDelete}>delete</button>
+    <div className={styles.modalWrapper}>
+      <div
+        className={styles.modalBackdrop}
+        onClick={() => setOpenModal(false)}
+      ></div>
+
+      <div className={styles.modalContainer}>
+        <p>Current weight: {weight}</p>
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="New value for update"
+          // value={newWeight}
+          onChange={(e) => setNewWeight(e.target.value)}
+          className={styles.weightInput}
+        />
+        <div className={styles.buttonsContainer}>
+          <button onClick={handleDelete}>delete</button>
+          <button onClick={handleUpdate}>update</button>
+        </div>
       </div>
     </div>
   );
