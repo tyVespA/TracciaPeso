@@ -1,0 +1,13 @@
+.weightsGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 20px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  max-width: 500px;
+}
+
+.weightsGrid p {
+  margin-block: 5px;
+}
