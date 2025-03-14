@@ -1,0 +1,15 @@
+.modalContainer {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  font-weight: bold;
+  padding: 20px 40px;
+}
+
+.buttonsContainer {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
