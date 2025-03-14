@@ -9,14 +9,26 @@ interface Weight {
 
 interface WeightsListProps {
   weights: Weight[];
+  setWeights: (weights: Weight[]) => void;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function WeightsList({ weights }: WeightsListProps) {
-  console.log(weights.length);
+export default function WeightsList({
+  weights,
+  setWeights,
+  setReload,
+}: WeightsListProps) {
   return (
     <div className={styles.weightsGrid}>
       {weights.map((dataPoint) => (
-        <WeightsListItem key={dataPoint.id} weight={dataPoint.weight} />
+        <WeightsListItem
+          key={dataPoint.id}
+          id={dataPoint.id}
+          weights={weights}
+          weight={dataPoint.weight}
+          setWeights={setWeights}
+          setReload={setReload}
+        />
       ))}
     </div>
   );
