@@ -1,0 +1,23 @@
+.errorContainer {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  font-weight: bold;
+  background-color: rgb(248, 85, 85);
+  color: black;
+  width: 300px;
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 0;
+  /* transform: translate(-50%, 0); */
+}
+
+.active {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.inactive {
+  transform: translate(-50%, -200px);
+  opacity: 0;
+}
