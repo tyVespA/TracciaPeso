@@ -1,10 +1,9 @@
 # TODO
 
 - add mobile media queries
-- add update functionality
 - improve styles
-- add icons
-- add error messages
+- add icons(?)
+- add error messages popups
 - add auth
 - add calendar(?)
 
