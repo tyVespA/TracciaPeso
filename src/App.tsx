@@ -4,6 +4,8 @@ import styles from "./App.module.css";
 import WeightsList from "./components//WeightsList/WeightsList";
 import DailyChart from "./components/Charts/DailyChart";
 import WeeklyChart from "./components/Charts/WeeklyChart";
+import Error from "./components/Error";
+import handleErrorMessage from "./utils/handleErrorMessage";
 
 interface Weight {
   id: string;
@@ -15,6 +17,8 @@ function App() {
   const [showWeightsList, setShowWeightsList] = useState(true);
   const [newWeight, setNewWeight] = useState("");
   const [reload, setReload] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorState, setErrorState] = useState(false);
 
   useEffect(() => {
     weightService.getAll().then((res) => {
@@ -30,6 +34,7 @@ function App() {
 
   function addWeight(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    handleErrorMessage({ newWeight, setErrorMessage, setErrorState });
     const newWeightObject = {
       weight: Number(newWeight),
     };
@@ -44,6 +49,7 @@ function App() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Weight tracker</h1>
+        <Error errorMessage={errorMessage} errorState={errorState} />
         <button
           className={styles.weightsListButton}
           onClick={handleWeightsListVisibility}

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import styles from "./WeightsListItemModal.module.css";
 import weightService from "../../services/weights";
+import Error from "../Error";
+import handleErrorMessage from "../../utils/handleErrorMessage";
 
 interface WeightsListItemModalProps {
   id: string;
@@ -22,19 +24,24 @@ export default function WeightsListItemModal({
   setReload,
 }: WeightsListItemModalProps) {
   const [newWeight, setNewWeight] = useState<number | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorState, setErrorState] = useState<boolean>(false);
 
   function handleDelete() {
     console.log(id);
-
-    weightService.deleteWeight(id).then(() => {
-      setWeights((prevWeights) => prevWeights.filter((w) => w.id !== id));
-    });
-    setOpenModal(false);
-    setReload((prev) => !prev);
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      weightService.deleteWeight(id).then(() => {
+        setWeights((prevWeights) => prevWeights.filter((w) => w.id !== id));
+        setOpenModal(false);
+        setReload((prev) => !prev);
+      });
+    }
   }
 
-  function handleUpdate() {
+  function handleUpdate(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (Number(newWeight) === weight) return;
+    handleErrorMessage({ newWeight, setErrorMessage, setErrorState });
 
     weightService.updateById(id, Number(newWeight)).then(() => {
       setWeights((prevWeights) =>
@@ -43,6 +50,7 @@ export default function WeightsListItemModal({
         )
       );
     });
+
     setOpenModal(false);
     setReload((prev) => !prev);
   }
@@ -55,15 +63,18 @@ export default function WeightsListItemModal({
       ></div>
 
       <div className={styles.modalContainer}>
+        <Error errorMessage={errorMessage} errorState={errorState} />
         <p>Current weight: {weight}</p>
-        <input
-          type="text"
-          inputMode="numeric"
-          placeholder="New value for update"
-          value={newWeight ?? ""}
-          onChange={(e) => setNewWeight(Number(e.target.value))}
-          className={styles.weightInput}
-        />
+        <form action="" onSubmit={handleUpdate}>
+          <input
+            type="text"
+            inputMode="numeric"
+            placeholder="New weight"
+            value={newWeight}
+            onChange={(e) => setNewWeight(e.target.value)}
+            className={styles.weightInput}
+          />
+        </form>
         <div className={styles.buttonsContainer}>
           <button onClick={handleDelete}>delete</button>
           <button onClick={handleUpdate}>update</button>
