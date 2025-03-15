@@ -8,7 +8,7 @@ export default function handleErrorMessage({
   newWeight,
   setErrorMessage,
   setErrorState,
-}: HandleErrorMessageProps) {
+}: HandleErrorMessageProps): boolean {
   let error = "";
 
   if (newWeight === null || newWeight === undefined || newWeight === "") {
@@ -24,9 +24,13 @@ export default function handleErrorMessage({
   if (error) {
     setErrorMessage(error);
     setErrorState(true);
+
+    setTimeout(() => {
+      setErrorState(false);
+    }, 2500);
+
+    return false;
   }
 
-  setTimeout(() => {
-    setErrorState(false);
-  }, 4000);
+  return true;
 }
