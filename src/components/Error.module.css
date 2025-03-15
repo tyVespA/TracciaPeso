@@ -1,7 +1,7 @@
 .errorContainer {
-  position: absolute;
-  top: 12%;
+  position: fixed;
   left: 50%;
+  transform: translateX(-50%);
   font-weight: bold;
   background-color: rgb(248, 85, 85);
   color: black;
@@ -9,7 +9,6 @@
   border-radius: 15px;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
   opacity: 0;
-  /* transform: translate(-50%, 0); */
 }
 
 .active {
