@@ -15,13 +15,13 @@ interface WeightsListItemModalProps {
 
 export default function WeightsListItemModal({
   id,
-  weights,
+  // weights,
   weight,
   setWeights,
   setOpenModal,
   setReload,
 }: WeightsListItemModalProps) {
-  const [newWeight, setNewWeight] = useState(weight);
+  const [newWeight, setNewWeight] = useState<number | undefined>(undefined);
 
   function handleDelete() {
     console.log(id);
@@ -34,7 +34,17 @@ export default function WeightsListItemModal({
   }
 
   function handleUpdate() {
+    if (Number(newWeight) === weight) return;
+
+    weightService.updateById(id, Number(newWeight)).then(() => {
+      setWeights((prevWeights) =>
+        prevWeights.map((w) =>
+          w.id === id ? { ...w, weight: Number(newWeight) } : w
+        )
+      );
+    });
     setOpenModal(false);
+    setReload((prev) => !prev);
   }
 
   return (
@@ -50,8 +60,8 @@ export default function WeightsListItemModal({
           type="text"
           inputMode="numeric"
           placeholder="New value for update"
-          // value={newWeight}
-          onChange={(e) => setNewWeight(e.target.value)}
+          value={newWeight ?? ""}
+          onChange={(e) => setNewWeight(Number(e.target.value))}
           className={styles.weightInput}
         />
         <div className={styles.buttonsContainer}>
