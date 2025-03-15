@@ -6,12 +6,13 @@ import DailyChart from "./components/DailyChart";
 import WeeklyChart from "./components/WeeklyChart";
 
 interface Weight {
-  weight: number;
   id: string;
+  weight: number | undefined;
 }
 
 function App() {
   const [weights, setWeights] = useState<Weight[]>([]);
+  const [showWeightsList, setShowWeightsList] = useState(true);
   const [newWeight, setNewWeight] = useState("");
   const [reload, setReload] = useState(false);
 
@@ -21,6 +22,11 @@ function App() {
       setWeights(res.data);
     });
   }, []);
+
+  function handleWeightsListVisibility() {
+    setShowWeightsList(!showWeightsList);
+    console.log(showWeightsList);
+  }
 
   function addWeight(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,18 +44,28 @@ function App() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Weight tracker</h1>
-        <WeightsList
-          weights={weights}
-          setWeights={setWeights}
-          setReload={setReload}
-        />
+        <button
+          className={styles.weightsListButton}
+          onClick={handleWeightsListVisibility}
+        >
+          {showWeightsList ? "Hide" : "Show"} weight list
+        </button>
+        {showWeightsList ? (
+          <WeightsList
+            weights={weights}
+            setWeights={setWeights}
+            setReload={setReload}
+          />
+        ) : (
+          ""
+        )}
         <form action="" onSubmit={addWeight} className={styles.form}>
           <input
             type="text"
             value={newWeight}
             onChange={(e) => setNewWeight(e.target.value)}
           />
-          <button>add today's weight</button>
+          <button>Add today's weight</button>
         </form>
       </main>
       <div className={styles.chartsContainer}>

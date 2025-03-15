@@ -8,6 +8,10 @@
   margin-bottom: 50px;
 }
 
+.weightsListButton {
+  margin-bottom: 20px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -24,4 +28,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 870px) {
+  body {
+    overflow-x: hidden;
+  }
+  .main {
+    margin-bottom: 15px;
+  }
+  .chartsContainer {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
 }
