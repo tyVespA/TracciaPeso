@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./WeightsListItemModal.module.css";
-import weightService from "../services/weights";
+import weightService from "../../services/weights";
 
 interface WeightsListItemModalProps {
   id: string;

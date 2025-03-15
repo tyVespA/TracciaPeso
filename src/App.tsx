@@ -1,9 +1,9 @@
 import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import styles from "./App.module.css";
-import WeightsList from "./components/WeightsList";
-import DailyChart from "./components/DailyChart";
-import WeeklyChart from "./components/WeeklyChart";
+import WeightsList from "./components//WeightsList/WeightsList";
+import DailyChart from "./components/Charts/DailyChart";
+import WeeklyChart from "./components/Charts/WeeklyChart";
 
 interface Weight {
   id: string;

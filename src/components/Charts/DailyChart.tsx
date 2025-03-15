@@ -1,6 +1,6 @@
 import styles from "./DailyChart.module.css";
 import { useEffect, useState } from "react";
-import weightService from "../services/weights";
+import weightService from "../../services/weights";
 
 import {
   LineChart,

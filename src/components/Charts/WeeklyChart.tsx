@@ -1,7 +1,7 @@
 import styles from "./WeeklyChart.module.css";
 import { useEffect, useState } from "react";
-import weightService from "../services/weights";
-import calculateWeeklyData from "../utils/calculateWeeklyData";
+import weightService from "../../services/weights";
+import calculateWeeklyData from "../../utils/calculateWeeklyData";
 
 import {
   LineChart,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./WeightsListItem.module.css";
-import formatWeight from "../utils/formatWeight";
+import formatWeight from "../../utils/formatWeight";
 import WeightsListItemModal from "./WeightsListItemModal";
 
 interface WeightsListItemProps {
