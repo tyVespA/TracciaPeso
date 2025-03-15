@@ -1,9 +1,10 @@
 # TODO
 
-- add mobile media queries
-- improve styles
-- add icons(?)
-- add error messages popups
+<!-- - add mobile media queries -->
+
+- improve styles (charts popup: font bold)
+  <!-- - add icons(?) -->
+  <!-- - add error messages popups -->
 - add auth
 - add calendar(?)
 
