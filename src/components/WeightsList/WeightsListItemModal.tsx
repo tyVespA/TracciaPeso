@@ -35,24 +35,34 @@ export default function WeightsListItemModal({
         setOpenModal(false);
         setReload((prev) => !prev);
       });
+    } else {
+      setOpenModal(false);
     }
   }
 
   function handleUpdate(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (Number(newWeight) === weight) return;
-    handleErrorMessage({ newWeight, setErrorMessage, setErrorState });
+    if (newWeight && Number(newWeight) === weight) {
+      return setOpenModal(false);
+    }
 
-    weightService.updateById(id, Number(newWeight)).then(() => {
-      setWeights((prevWeights) =>
-        prevWeights.map((w) =>
-          w.id === id ? { ...w, weight: Number(newWeight) } : w
-        )
-      );
+    const isValid = handleErrorMessage({
+      newWeight,
+      setErrorMessage,
+      setErrorState,
     });
 
-    setOpenModal(false);
-    setReload((prev) => !prev);
+    if (isValid) {
+      weightService.updateById(id, Number(newWeight)).then(() => {
+        setWeights((prevWeights) =>
+          prevWeights.map((w) =>
+            w.id === id ? { ...w, weight: Number(newWeight) } : w
+          )
+        );
+        setOpenModal(false);
+        setReload((prev) => !prev);
+      });
+    }
   }
 
   return (
@@ -61,10 +71,9 @@ export default function WeightsListItemModal({
         className={styles.modalBackdrop}
         onClick={() => setOpenModal(false)}
       ></div>
-
       <div className={styles.modalContainer}>
         <Error errorMessage={errorMessage} errorState={errorState} />
-        <p>Current weight: {weight}</p>
+        <p>Current weight: {weight} kg</p>
         <form action="" onSubmit={handleUpdate}>
           <input
             type="text"
@@ -76,8 +85,8 @@ export default function WeightsListItemModal({
           />
         </form>
         <div className={styles.buttonsContainer}>
-          <button onClick={handleDelete}>delete</button>
-          <button onClick={handleUpdate}>update</button>
+          <button onClick={handleUpdate}>Update</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
     </div>
