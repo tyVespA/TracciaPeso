@@ -9,14 +9,17 @@
   border-radius: 15px;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
   opacity: 0;
+  z-index: 9999;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
 }
 
 .active {
-  transform: translate(-50%, 0);
   opacity: 1;
 }
 
 .inactive {
-  transform: translate(-50%, -200px);
   opacity: 0;
+  transform: translate(-50%, -200px);
 }
