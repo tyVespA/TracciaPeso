@@ -18,10 +18,13 @@ const deleteWeight = (id: string) => {
   return axios.delete(`${baseUrl}/${id}`);
 };
 
-// const update
+const updateById = (id: string, newWeight: number) => {
+  return axios.put(`${baseUrl}/${id}`, { weight: newWeight });
+};
 
 export default {
   getAll,
   create,
   deleteWeight,
+  updateById,
 };
