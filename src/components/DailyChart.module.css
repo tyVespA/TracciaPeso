@@ -1,3 +1,31 @@
 .title {
   padding-left: 40px;
 }
+
+@media screen and (max-width: 590px) {
+  .title {
+    padding-left: 0;
+  }
+  .chartDiv {
+    margin-left: -40px;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .title {
+    padding-left: 20px;
+    margin-bottom: 0px;
+  }
+  .chartDiv {
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .title {
+    padding-left: 30px;
+  }
+  .chartDiv {
+    transform: scale(0.85);
+  }
+}
