@@ -1,6 +1,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import styles from "./App.module.css";
+import GoogleLogin from "./components/Auth/GoogleLogin";
 import WeightsList from "./components//WeightsList/WeightsList";
 import DailyChart from "./components/Charts/DailyChart";
 import WeeklyChart from "./components/Charts/WeeklyChart";
@@ -49,6 +50,7 @@ function App() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Weight tracker</h1>
+        <GoogleLogin />
         <Error errorMessage={errorMessage} errorState={errorState} />
         <button
           className={styles.weightsListButton}
