@@ -1,6 +1,9 @@
 import { auth, provider, signInWithPopup } from "../../firebase";
 import axios from "axios";
-const baseUrl = "/auth/firebase";
+const baseUrl =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3001/auth/firebase"
+    : "deployed-link/auth/firebase";
 
 const GoogleLogin = ({ onLoginSuccess }) => {
   const handleLogin = async () => {
