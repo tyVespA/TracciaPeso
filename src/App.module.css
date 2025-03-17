@@ -8,6 +8,27 @@
   margin-bottom: 50px;
 }
 
+.signInScreen p {
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.signInScreen p:last-of-type {
+  margin-bottom: 25px;
+}
+
+.loginBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.loginBtns button {
+  width: 250px;
+  padding-block: 15px;
+}
+
 .weightsListButton {
   margin-bottom: 20px;
 }

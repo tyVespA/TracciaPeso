@@ -84,7 +84,7 @@ function App() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1>Weight tracker</h1>
+        <h1>TracciaPeso</h1>
         {user ? (
           <div>
             <UserPreview user={user} setUser={setUser} />
@@ -119,9 +119,17 @@ function App() {
             </div>
           </div>
         ) : (
-          <div>
-            <GoogleLogin onLoginSuccess={handleLoginSuccess} />
-            <button onClick={handleTestLogin}>Login as Test User</button>
+          <div className={styles.signInScreen}>
+            <p>Un'app semplice ed efficace per monitorare il tuo peso.</p>
+            <p>
+              Registra i tuoi dati giornalieri, osserva le variazioni nel tempo
+              e analizza l'andamento giornaliero e le medie settimanali con
+              grafici intuitivi.
+            </p>
+            <div className={styles.loginBtns}>
+              <GoogleLogin onLoginSuccess={handleLoginSuccess} />
+              <button onClick={handleTestLogin}>Accedi come ospite Demo</button>
+            </div>
           </div>
         )}
       </main>
