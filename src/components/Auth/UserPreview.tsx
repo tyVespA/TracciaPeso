@@ -22,8 +22,10 @@ export default function UserPreview({ user, setUser }) {
   }, [user]);
 
   const handleLogout = () => {
-    localStorage.clear();
-    setUser(null);
+    if (window.confirm("Are you sure you want to logout?")) {
+      localStorage.clear();
+      setUser(null);
+    }
   };
 
   if (!user) return null;
@@ -34,8 +36,8 @@ export default function UserPreview({ user, setUser }) {
         <img
           src={cachedImage}
           alt=""
-          width="50"
-          height="50"
+          width="30"
+          height="30"
           crossOrigin="anonymous"
         />
       ) : (
@@ -43,13 +45,13 @@ export default function UserPreview({ user, setUser }) {
           <img
             src={user.picture}
             alt=""
-            width="50"
-            height="50"
+            width="30"
+            height="30"
             crossOrigin="anonymous"
           />
         )
       )}
-      <p>Welcome {user.name?.split(" ")[0]}</p>
+      <p>Welcome, {user.name?.split(" ")[0]}</p>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
