@@ -1,5 +1,7 @@
 import { auth, provider, signInWithPopup } from "../../firebase";
 import axios from "axios";
+import styles from "./GoogleLogin.module.css";
+
 const baseUrl =
   import.meta.env.MODE === "development"
     ? "http://localhost:3001/auth/firebase"
@@ -21,7 +23,12 @@ const GoogleLogin = ({ onLoginSuccess }) => {
     }
   };
 
-  return <button onClick={handleLogin}>Sign in with Google</button>;
+  return (
+    <button onClick={handleLogin} className={styles.googleLoginBtn}>
+      <img src="/google-logo.svg" alt="" />
+      Accedi con Google
+    </button>
+  );
 };
 
 export default GoogleLogin;
