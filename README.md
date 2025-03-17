@@ -3,6 +3,9 @@
 <!-- - add mobile media queries -->
 
 - improve styles (charts popup: font bold)
+- add message when not logged in
+- add message when no weights
+- fix UserPreview on mobile
   <!-- - add icons(?) -->
   <!-- - add error messages popups -->
 - add auth
