@@ -1,6 +1,8 @@
 import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import styles from "./App.module.css";
+import GoogleLogin from "./components/Auth/GoogleLogin";
+import UserPreview from "./components/Auth/UserPreview";
 import WeightsList from "./components//WeightsList/WeightsList";
 import DailyChart from "./components/Charts/DailyChart";
 import WeeklyChart from "./components/Charts/WeeklyChart";
@@ -20,12 +22,45 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorState, setErrorState] = useState(false);
 
+  interface User {
+    name: string;
+    picture: string;
+    email: string;
+  }
+
+  const [user, setUser] = useState<User | null>(null);
+
+  const handleTestLogin = () => {
+    const testUser = {
+      firebaseId: "test1234",
+      email: "testuser@example.com",
+      name: "Test User",
+      picture: "https://www.example.com/test-user.jpg",
+    };
+    localStorage.setItem("user", JSON.stringify(testUser)); // Store test user in localStorage
+    setUser(testUser); // Set the user state
+  };
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
   useEffect(() => {
     weightService.getAll().then((res) => {
       console.log(res.data);
       setWeights(res.data);
     });
   }, []);
+
+  const handleLoginSuccess = (user) => {
+    console.log("User logged in:", user);
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+    window.location.reload();
+  };
 
   function handleWeightsListVisibility() {
     setShowWeightsList(!showWeightsList);
@@ -38,6 +73,7 @@ function App() {
     const newWeightObject = {
       weight: Number(newWeight),
     };
+
     weightService.create(newWeightObject).then((res) => {
       setWeights(weights.concat(res.data));
       setNewWeight("");
@@ -49,35 +85,46 @@ function App() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Weight tracker</h1>
-        <Error errorMessage={errorMessage} errorState={errorState} />
-        <button
-          className={styles.weightsListButton}
-          onClick={handleWeightsListVisibility}
-        >
-          {showWeightsList ? "Hide" : "Show"} weight list
-        </button>
-        {showWeightsList ? (
-          <WeightsList
-            weights={weights}
-            setWeights={setWeights}
-            setReload={setReload}
-          />
+        {user ? (
+          <div>
+            <UserPreview user={user} setUser={setUser} />
+            <Error errorMessage={errorMessage} errorState={errorState} />
+            <button
+              className={styles.weightsListButton}
+              onClick={handleWeightsListVisibility}
+            >
+              {showWeightsList ? "Hide" : "Show"} weight list
+            </button>
+            {showWeightsList ? (
+              <WeightsList
+                weights={weights}
+                setWeights={setWeights}
+                setReload={setReload}
+              />
+            ) : (
+              ""
+            )}
+            <form action="" onSubmit={addWeight} className={styles.form}>
+              <input
+                type="text"
+                value={newWeight}
+                onChange={(e) => setNewWeight(e.target.value)}
+                placeholder="Today's weight"
+              />
+              <button>Add today's weight</button>
+            </form>
+            <div className={styles.chartsContainer}>
+              <DailyChart reload={reload} />
+              <WeeklyChart reload={reload} />
+            </div>
+          </div>
         ) : (
-          ""
+          <div>
+            <GoogleLogin onLoginSuccess={handleLoginSuccess} />
+            <button onClick={handleTestLogin}>Login as Test User</button>
+          </div>
         )}
-        <form action="" onSubmit={addWeight} className={styles.form}>
-          <input
-            type="text"
-            value={newWeight}
-            onChange={(e) => setNewWeight(e.target.value)}
-          />
-          <button>Add today's weight</button>
-        </form>
       </main>
-      <div className={styles.chartsContainer}>
-        <DailyChart reload={reload} />
-        <WeeklyChart reload={reload} />
-      </div>
     </div>
   );
 }

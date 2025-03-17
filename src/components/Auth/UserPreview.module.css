@@ -1,0 +1,11 @@
+.userPreview {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  text-align: end;
+}
+
+.userPreview p {
+  padding-block: 0;
+  margin-block: 0;
+}
