@@ -1,5 +1,12 @@
 .title {
-  padding-left: 40px;
+  padding-left: 70px;
+  text-align: start;
+}
+
+@media screen and (max-width: 870px) {
+  .title {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 590px) {

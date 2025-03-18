@@ -38,7 +38,7 @@ export default function TestChart({ reload }: { reload: boolean }) {
 
   return (
     <div>
-      <h2 className={styles.title}>Weekly average weight</h2>
+      <h2 className={styles.title}>Medie dei pesi settimanali</h2>
       <div className={styles.chartDiv}>
         <LineChart
           width={400}

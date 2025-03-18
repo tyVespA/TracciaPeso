@@ -32,7 +32,7 @@ export default function DailyChart({ reload }: { reload: boolean }) {
 
   return (
     <div>
-      <h2 className={styles.title}>Daily weight</h2>
+      <h2 className={styles.title}>Pesi giornalieri</h2>
       <div className={styles.chartDiv}>
         <LineChart
           width={400}
