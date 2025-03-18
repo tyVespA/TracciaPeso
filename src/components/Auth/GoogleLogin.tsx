@@ -5,7 +5,7 @@ import styles from "./GoogleLogin.module.css";
 const baseUrl =
   import.meta.env.MODE === "development"
     ? "http://localhost:3001/auth/firebase"
-    : "deployed-link/auth/firebase";
+    : "https://weight-tracker-xyes.onrender.com/";
 
 const GoogleLogin = ({ onLoginSuccess }) => {
   const handleLogin = async () => {
