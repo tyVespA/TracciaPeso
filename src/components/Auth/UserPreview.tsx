@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import styles from "./UserPreview.module.css";
 
 export default function UserPreview({ user, setUser }) {
-  const [cachedImage, setCachedImage] = useState(null);
+  const [imageSource, setImageSource] = useState(null);
+  const [userClicked, setUserClicked] = useState(false);
+
+  const defaultImage = "/google-logo.svg";
 
   useEffect(() => {
     if (!user) return;
@@ -10,19 +13,27 @@ export default function UserPreview({ user, setUser }) {
     const userId = user.firebaseId;
     const userPicture = user.picture;
 
-    if (!userId || !userPicture) return;
+    if (!userId) return;
 
-    const cachedImg = localStorage.getItem(`user_img_${userId}`);
-    if (cachedImg) {
-      setCachedImage(cachedImg);
+    if (userPicture) {
+      const cachedImg = localStorage.getItem(`user_img_${userId}`);
+      if (cachedImg) {
+        setImageSource(cachedImg);
+      } else {
+        localStorage.setItem(`user_img_${userId}`, userPicture);
+        setImageSource(userPicture);
+      }
     } else {
-      localStorage.setItem(`user_img_${userId}`, userPicture);
-      setCachedImage(userPicture);
+      setImageSource(defaultImage);
     }
   }, [user]);
 
+  const handleClick = () => {
+    setUserClicked(!userClicked);
+  };
+
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
+    if (window.confirm("Sei sicuro di voler uscire?")) {
       localStorage.clear();
       setUser(null);
     }
@@ -32,27 +43,27 @@ export default function UserPreview({ user, setUser }) {
 
   return (
     <div className={styles.userPreview}>
-      {cachedImage ? (
+      <div className={styles.userGreetings}>
+        <p>
+          Ciao,{" "}
+          <button onClick={handleClick}>{user.name?.split(" ")[0]}</button>
+        </p>
         <img
-          src={cachedImage}
+          src={imageSource || defaultImage}
           alt=""
           width="30"
           height="30"
           crossOrigin="anonymous"
+          onError={() => setImageSource(defaultImage)}
         />
+      </div>
+      {userClicked ? (
+        <button onClick={handleLogout} className={styles.logoutBtn}>
+          Esci
+        </button>
       ) : (
-        user.picture && (
-          <img
-            src={user.picture}
-            alt=""
-            width="30"
-            height="30"
-            crossOrigin="anonymous"
-          />
-        )
+        ""
       )}
-      <p>Welcome, {user.name?.split(" ")[0]}</p>
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
