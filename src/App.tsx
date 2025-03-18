@@ -84,17 +84,24 @@ function App() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        {user ? <UserPreview user={user} setUser={setUser} /> : ""}
         <h1>TracciaPeso</h1>
         {user ? (
           <div>
-            <UserPreview user={user} setUser={setUser} />
             <Error errorMessage={errorMessage} errorState={errorState} />
-            <button
-              className={styles.weightsListButton}
-              onClick={handleWeightsListVisibility}
-            >
-              {showWeightsList ? "Hide" : "Show"} weight list
-            </button>
+
+            {weights.length == 0 ? (
+              <div>
+                Inizia a inserire il tuo peso in kg con il modulo sottostante
+              </div>
+            ) : (
+              <button
+                className={styles.weightsListButton}
+                onClick={handleWeightsListVisibility}
+              >
+                {showWeightsList ? "Nascondi" : "Mostra"} i pesi salvati
+              </button>
+            )}
             {showWeightsList ? (
               <WeightsList
                 weights={weights}
@@ -109,9 +116,9 @@ function App() {
                 type="text"
                 value={newWeight}
                 onChange={(e) => setNewWeight(e.target.value)}
-                placeholder="Today's weight"
+                placeholder="Peso odierno"
               />
-              <button>Add today's weight</button>
+              <button className={styles.aggiungiPesoBtn}>Aggiungi peso</button>
             </form>
             <div className={styles.chartsContainer}>
               <DailyChart reload={reload} />
