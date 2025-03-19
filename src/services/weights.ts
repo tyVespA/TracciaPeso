@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const pingUrl = import.meta.env.VITE_API_PING_URL;
 
 const getAuthHeader = () => {
   const token = localStorage.getItem("token");
@@ -14,6 +15,18 @@ interface Weight {
 
 const getAll = () => {
   return axios.get(baseUrl, { headers: getAuthHeader() });
+};
+
+const pingServer = () => {
+  return axios
+    .get(pingUrl)
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch((error) => {
+      return console.error("Failed to ping server", error);
+    });
 };
 
 const create = (newObject: Omit<Weight, "id">) => {
@@ -34,6 +47,7 @@ const updateById = (id: string, newWeight: number) => {
 
 export default {
   getAll,
+  pingServer,
   create,
   deleteWeight,
   updateById,
