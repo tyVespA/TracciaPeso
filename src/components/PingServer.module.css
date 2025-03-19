@@ -35,7 +35,7 @@
 }
 
 .serverLoading {
-  animation: borderRotate 2s linear infinite;
-  border-width: 2px;
+  animation: borderRotate 1.5s linear infinite;
+  border-width: 1px;
   border-style: solid;
 }
