@@ -1,23 +1,41 @@
-.isServerAlive {
+.serverAlive {
   border-color: transparent;
   cursor: not-allowed;
 }
 
-.isServerAlive:hover {
+.serverAlive:hover {
   border-color: transparent;
 }
 
-.isServerDown {
+.serverDown {
   border-color: green;
   cursor: pointer;
 }
 
-.isServerDown:hover {
+.serverDown:hover {
   border-color: lightgreen;
 }
 
-.isServerAlive:disabled,
-.isServerDown:disabled {
+.serverAlive:disabled,
+.serverDown:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+@keyframes borderRotate {
+  0% {
+    border-color: green;
+  }
+  50% {
+    border-color: lightgreen;
+  }
+  100% {
+    border-color: green;
+  }
+}
+
+.serverLoading {
+  animation: borderRotate 2s linear infinite;
+  border-width: 2px;
+  border-style: solid;
 }

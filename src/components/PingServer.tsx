@@ -5,9 +5,15 @@ export default function PingServer({ pingServer, isLoading, isServerAlive }) {
     <button
       onClick={pingServer}
       disabled={isLoading || isServerAlive}
-      className={isServerAlive ? styles.isServerAlive : styles.isServerDown}
+      className={`${isServerAlive ? styles.serverAlive : styles.serverDown} ${
+        isLoading ? styles.serverLoading : ""
+      }`}
     >
-      {isLoading ? "Attivazione in corso..." : "Attiva il server"}
+      {isLoading
+        ? "Attivazione in corso..."
+        : isServerAlive
+        ? "Server attivo"
+        : "Attiva il server"}
     </button>
   );
 }
