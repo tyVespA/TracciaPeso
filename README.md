@@ -6,9 +6,7 @@ Il codice per la sezione backend è disponibile [QUI](https://github.com/tyVespA
 
 ## 🚀 Demo
 
-🔗 [Live Website](https://weight-tracker-xyes.onrender.com/)
-
-L'app è hostata su render.com e può volerci fino a un minuto per caricarsi alla prima visualizzazione
+🔗 [Live Website](https://traccia-peso.vercel.app/)
 
 ## 🛠 Tecnologie Utilizzate
 
@@ -34,20 +32,8 @@ Backend:
 - Autenticazione utenti con Firebase Authentication
 - Backend con Node.js ed Express
 - Database NoSQL con MongoDB e Mongoose
+- Error Handling both in backend and frontend
 
 ## 📸 Screenshot
 
-![Anteprima dell'app](https://www.marcomigliavacca.it/_next/image?url=%2Fimages%2FprojectsImages%2FmeteoThumbnail.jpg&w=640&q=75)
-
-## TODO
-
-- improve styles (charts popup: font bold)
-- fix demo user
-  <!-- - fix UserPreview on mobile -->
-  <!-- - add mobile media queries -->
-  <!-- - add message when not logged in -->
-  <!-- - add message when no weights -->
-  <!-- - add icons(?) -->
-  <!-- - add error messages popups -->
-  <!-- - add auth -->
-- add calendar(?)
+![Anteprima dell'app](https://www.marcomigliavacca.it/_next/image?url=%2Fimages%2FprojectsImages%2FtracciaPesoThumbnail.jpg&w=640&q=75)
