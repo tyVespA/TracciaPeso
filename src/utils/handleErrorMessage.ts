@@ -12,13 +12,13 @@ export default function handleErrorMessage({
   let error = "";
 
   if (newWeight === null || newWeight === undefined || newWeight === "") {
-    error = "Type a weight before submitting";
+    error = "Inserisci il peso prima di inviare";
   } else if (isNaN(Number(newWeight))) {
-    error = "Weight can't contain letters";
+    error = "Il peso non può contenere lettere";
   } else if (Number(newWeight) < 0) {
-    error = "Weight can't be less than 0";
+    error = "Il peso non può essere minore di 0";
   } else if (Number(newWeight) > 299) {
-    error = "Weight can't be more than 300";
+    error = "Il peso non può essere maggiore di 300";
   }
 
   if (error) {

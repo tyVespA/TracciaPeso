@@ -29,12 +29,19 @@
   align-items: center;
 }
 
-.loginBtns button {
+.signInScreen button {
   width: 250px;
   padding-block: 15px;
 }
 
+@media screen and (max-width: 640px) {
+  .signInScreen {
+    padding-inline: 20px;
+  }
+}
+
 .weightsListButton {
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
