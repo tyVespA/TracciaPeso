@@ -1,6 +1,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import weightService from "./services/weights";
 import styles from "./App.module.css";
+import PingServer from "./components/PingServer";
 import GoogleLogin from "./components/Auth/GoogleLogin";
 import UserPreview from "./components/Auth/UserPreview";
 import WeightsList from "./components//WeightsList/WeightsList";
@@ -22,6 +23,11 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorState, setErrorState] = useState(false);
 
+  const [isServerAlive, setIsServerAlive] = useState<boolean | undefined>(
+    undefined
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
   interface User {
     name: string;
     picture: string;
@@ -37,9 +43,32 @@ function App() {
       name: "Test User",
       picture: "https://www.example.com/test-user.jpg",
     };
-    localStorage.setItem("user", JSON.stringify(testUser)); // Store test user in localStorage
-    setUser(testUser); // Set the user state
+    localStorage.setItem("user", JSON.stringify(testUser));
+    setUser(testUser);
   };
+
+  const pingServer = () => {
+    setIsLoading(true);
+    weightService
+      .pingServer()
+      .then((res) => {
+        if (res === "pong") {
+          setIsServerAlive(true);
+        }
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    weightService.pingServer().then((res) => {
+      if (res === "pong") {
+        setIsServerAlive(true);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -89,7 +118,19 @@ function App() {
         {user ? (
           <div>
             <Error errorMessage={errorMessage} errorState={errorState} />
-
+            <p>Stato del server: {isServerAlive ? "attivo" : "disattivo"}</p>
+            {isServerAlive ? (
+              ""
+            ) : (
+              <div>
+                <p>Il server è stato spento per inattività</p>
+                <PingServer
+                  pingServer={pingServer}
+                  isLoading={isLoading}
+                  isServerAlive={isServerAlive}
+                />
+              </div>
+            )}
             {weights.length == 0 ? (
               <div>
                 Inizia a inserire il tuo peso in kg con il modulo sottostante
@@ -118,7 +159,12 @@ function App() {
                 onChange={(e) => setNewWeight(e.target.value)}
                 placeholder="Peso odierno"
               />
-              <button className={styles.aggiungiPesoBtn}>Aggiungi peso</button>
+              <button
+                className={styles.aggiungiPesoBtn}
+                disabled={!isServerAlive}
+              >
+                Aggiungi peso
+              </button>
             </form>
             <div className={styles.chartsContainer}>
               <DailyChart reload={reload} />
@@ -133,9 +179,25 @@ function App() {
               e analizza l'andamento giornaliero e le medie settimanali con
               grafici intuitivi.
             </p>
+            <br />
+            <p>
+              L'app è hostata su render.com e dopo periodi di inattività è
+              necessario riattiavare il server prima di poter fare il login. La
+              riattivazione può impiegare fino a 60 secondi.
+            </p>
             <div className={styles.loginBtns}>
-              <GoogleLogin onLoginSuccess={handleLoginSuccess} />
-              <button onClick={handleTestLogin}>Accedi come ospite Demo</button>
+              <PingServer
+                pingServer={pingServer}
+                isLoading={isLoading}
+                isServerAlive={isServerAlive}
+              />
+              <GoogleLogin
+                onLoginSuccess={handleLoginSuccess}
+                isServerAlive={isServerAlive}
+              />
+              <button onClick={handleTestLogin} disabled={!isServerAlive}>
+                Accedi come ospite Demo
+              </button>
             </div>
           </div>
         )}
