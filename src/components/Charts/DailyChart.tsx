@@ -54,7 +54,28 @@ export default function DailyChart({ reload }: { reload: boolean }) {
             tickCount={maxWeight - minWeight + 1}
             interval={0}
           />
-          <Tooltip />
+          <Tooltip
+            content={(props) => {
+              const { payload } = props;
+              if (payload && payload.length > 0) {
+                const weight = payload[0].value;
+                return (
+                  <div>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "14px",
+                        backgroundColor: "black",
+                        padding: "5px 10px",
+                        borderRadius: "5px",
+                      }}
+                    >{`${weight} kg`}</p>
+                  </div>
+                );
+              }
+              return null;
+            }}
+          />
         </LineChart>
       </div>
     </div>
