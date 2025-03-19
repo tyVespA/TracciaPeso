@@ -1,6 +1,23 @@
 import styles from "./PingServer.module.css";
+import { useEffect } from "react";
 
-export default function PingServer({ pingServer, isLoading, isServerAlive }) {
+interface PingServerProps {
+  pingServer: () => void;
+  isLoading: boolean;
+  isServerAlive: boolean;
+}
+
+export default function PingServer({
+  pingServer,
+  isLoading,
+  isServerAlive,
+}: PingServerProps) {
+  useEffect(() => {
+    if (!isServerAlive) {
+      pingServer();
+    }
+  }, [isServerAlive]);
+
   return (
     <button
       onClick={pingServer}
@@ -12,7 +29,7 @@ export default function PingServer({ pingServer, isLoading, isServerAlive }) {
       {isLoading
         ? "Attivazione in corso..."
         : isServerAlive
-        ? "Server attivo"
+        ? "Server attivo ✅"
         : "Attiva il server"}
     </button>
   );
