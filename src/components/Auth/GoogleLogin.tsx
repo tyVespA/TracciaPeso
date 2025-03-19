@@ -7,7 +7,7 @@ const baseUrl =
     ? "http://localhost:3001/auth/firebase"
     : "https://weight-tracker-xyes.onrender.com/auth/firebase";
 
-const GoogleLogin = ({ onLoginSuccess }) => {
+const GoogleLogin = ({ onLoginSuccess, isServerAlive }) => {
   const handleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -24,7 +24,11 @@ const GoogleLogin = ({ onLoginSuccess }) => {
   };
 
   return (
-    <button onClick={handleLogin} className={styles.googleLoginBtn}>
+    <button
+      onClick={handleLogin}
+      className={styles.googleLoginBtn}
+      disabled={!isServerAlive}
+    >
       <img src="/google-logo.svg" alt="" />
       Accedi con Google
     </button>
