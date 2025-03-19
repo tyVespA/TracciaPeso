@@ -173,6 +173,7 @@ function App() {
           </div>
         ) : (
           <div className={styles.signInScreen}>
+            <h2>⚖️</h2>
             <p>Un'app semplice ed efficace per monitorare il tuo peso.</p>
             <p>
               Registra i tuoi dati giornalieri, osserva le variazioni nel tempo
