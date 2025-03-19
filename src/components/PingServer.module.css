@@ -1,0 +1,23 @@
+.isServerAlive {
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+.isServerAlive:hover {
+  border-color: transparent;
+}
+
+.isServerDown {
+  border-color: green;
+  cursor: pointer;
+}
+
+.isServerDown:hover {
+  border-color: lightgreen;
+}
+
+.isServerAlive:disabled,
+.isServerDown:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
