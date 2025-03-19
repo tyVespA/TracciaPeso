@@ -38,10 +38,10 @@ function App() {
 
   const handleTestLogin = () => {
     const testUser = {
-      firebaseId: "test1234",
-      email: "testuser@example.com",
-      name: "Test User",
-      picture: "https://www.example.com/test-user.jpg",
+      firebaseId: "iU2w6x9NoNRljYoHYPiyEAhOoeF3",
+      email: "demo@tracciapeso.it",
+      name: "Demo User",
+      picture: "",
     };
     localStorage.setItem("user", JSON.stringify(testUser));
     setUser(testUser);
@@ -118,7 +118,6 @@ function App() {
         {user ? (
           <div>
             <Error errorMessage={errorMessage} errorState={errorState} />
-            <p>Stato del server: {isServerAlive ? "attivo" : "disattivo"}</p>
             {isServerAlive ? (
               ""
             ) : (
@@ -173,7 +172,7 @@ function App() {
           </div>
         ) : (
           <div className={styles.signInScreen}>
-            <h2>⚖️</h2>
+            <div style={{ fontSize: "40px", marginBottom: "20px" }}>⚖️</div>
             <p>Un'app semplice ed efficace per monitorare il tuo peso.</p>
             <p>
               Registra i tuoi dati giornalieri, osserva le variazioni nel tempo
@@ -192,10 +191,17 @@ function App() {
                 isLoading={isLoading}
                 isServerAlive={isServerAlive}
               />
+
               <GoogleLogin
                 onLoginSuccess={handleLoginSuccess}
                 isServerAlive={isServerAlive}
               />
+
+              {/* <span>In fase di sviluppo:</span>
+              <button onClick={handleTestLogin} disabled={true}>
+                Accedi come ospite Demo
+              </button> */}
+
               <button onClick={handleTestLogin} disabled={!isServerAlive}>
                 Accedi come ospite Demo
               </button>

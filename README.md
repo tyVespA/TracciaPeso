@@ -32,7 +32,7 @@ Backend:
 - Autenticazione utenti con Firebase Authentication
 - Backend con Node.js ed Express
 - Database NoSQL con MongoDB e Mongoose
-- Error Handling both in backend and frontend
+- Error Handling sia nel backend che frontend
 
 ## 📸 Screenshot
 

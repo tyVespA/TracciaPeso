@@ -36,6 +36,6 @@
 
 .serverLoading {
   animation: borderRotate 1.5s linear infinite;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
 }
