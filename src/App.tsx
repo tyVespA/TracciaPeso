@@ -202,9 +202,9 @@ function App() {
                 Accedi come ospite Demo
               </button> */}
 
-              <button onClick={handleTestLogin} disabled={!isServerAlive}>
+              {/* <button onClick={handleTestLogin} disabled={!isServerAlive}>
                 Accedi come ospite Demo
-              </button>
+              </button> */}
             </div>
           </div>
         )}
